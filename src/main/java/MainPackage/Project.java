@@ -12,7 +12,7 @@ public class Project implements ActionListener
     static JLabel output;
     static JTable table;
     public static ArrayList<Haina> haine = new ArrayList<Haina>();
-    public static ArrayList<Incaltaminte> incaltaminte = new ArrayList<Incaltaminte>();
+    public static final ArrayList<Incaltaminte> incaltaminte = new ArrayList<Incaltaminte>();
     //static Haina[] haine = new Haina[20];
     static DefaultTableModel model;
 
@@ -101,14 +101,32 @@ public class Project implements ActionListener
 
         JButton addButton = new JButton("Add Article");
         JButton searchButton = new JButton("Cautare");
+        JButton addButton2 = new JButton("Add Shoes");
+        JButton storeInfoButton = new JButton("Store Info");
 
-        frame.add(addButton);frame.add(searchButton);
+        frame.add(addButton);frame.add(searchButton);frame.add(addButton2);frame.add(storeInfoButton);
+        
+        storeInfoButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                new ShowInfo();
+            }
+        });
         
         searchButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                new Search(haine);
+                new Search(haine, incaltaminte);
+            }
+        });
+        
+        addButton2.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                new AddShoes(incaltaminte);
             }
         });
 
@@ -126,7 +144,81 @@ public class Project implements ActionListener
         new CreateFrame(); 
     }
 
+static public class ShowInfo extends JFrame
+{
+	public ShowInfo()
+	{
+		MagazinHaine mh = MagazinHaine.getInstance();
+        final JLabel label1  = new JLabel("Nume Magazin: " + mh.getName());
+        final JLabel label2  = new JLabel("Adresa Magazin: " + mh.getAdress());
 
+        JButton button = new JButton("Done");
+        button.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e)
+            {
+        		dispose();
+            }
+        });
+        add(label1);  add(label2); 
+
+        setLayout(new FlowLayout());
+        setSize(700, 100);
+        setVisible(true);
+	}
+}
+    
+static class AddShoes extends JFrame
+{
+	public AddShoes(final ArrayList<Incaltaminte> incaltaminte)
+	{
+		final JTextField text1 = new JTextField(10);
+        final JTextField text2 = new JTextField(10);
+        final JTextField text3 = new JTextField(10);
+        final JTextField text4 = new JTextField(10);
+        final JLabel label1  = new JLabel("Articol: ");
+        final JLabel label2  = new JLabel("Culoare: ");
+        final JLabel label3  = new JLabel("Pret   : ");
+        final JLabel label4  = new JLabel("Marime : ");
+
+        JButton button = new JButton("Done");
+
+        add(label1); add(text1); add(label2); add(text2); add(label3); add(text3); add(label4); add(text4);
+
+        add(button);
+        button.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                if(Utility.isNumeric(text1.getText()) || (Utility.isNumeric(text2.getText())) || !(Utility.isNumeric(text3.getText())))
+                {
+                    new ShowError(); 
+                    dispose();
+                }
+                else
+                {
+                Incaltaminte h = new Incaltaminte(Integer.parseInt(text4.getText()), text1.getText(), text2.getText(), Integer.parseInt(text3.getText()));
+                //haine[Haina.NR_OF_CLOTHING_ITEMS] = h;
+                incaltaminte.add(h);
+
+                model.addRow(
+                   new Object[]{
+                        text1.getText(), 
+                        text2.getText(),
+                        text3.getText(),
+                        text4.getText()
+                   });
+                dispose();
+                }
+            }
+        });
+
+        setLayout(new FlowLayout());
+        setSize(800, 100);
+        setVisible(true);
+	}
+}
+    
 class CreateFrame extends JFrame
 {
     public CreateFrame()
@@ -200,7 +292,7 @@ class ShowError extends JFrame
 
 class Search extends JFrame
 {
-    public Search(final ArrayList<Haina> haine)
+    public Search(final ArrayList<Haina> haine, final ArrayList<Incaltaminte> incaltaminte)
     {
     final JLabel searchLabel  = new JLabel("Introdu Articolul Cautat");
     final JLabel articolLabel  = new JLabel("Aici vor aparea informatiile despre articol");
@@ -212,7 +304,15 @@ class Search extends JFrame
         {
             int n = 0;
             int m = 0;
-            for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
+            /*for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
+            {
+                if(searchText.getText().equals(haine.get(i).getNume()))
+                {
+                m = i;
+                n++;
+                }
+            }*/
+            for(int i = 0; i < haine.size() ;i++)
             {
                 if(searchText.getText().equals(haine.get(i).getNume()))
                 {
@@ -231,6 +331,27 @@ class Search extends JFrame
             {
             searchLabel.setText("Gasit " + n + " articole numite: ");
             articolLabel.setText(haine.get(m).toString());
+            }
+            
+            for(int i = 0; i < incaltaminte.size() ;i++)
+            {
+                if(searchText.getText().equals(incaltaminte.get(i).getNume()))
+                {
+                m = i;
+                n++;
+                }
+            }
+            if(n == 0)
+            searchLabel.setText("Nu sa gasit");
+            else if (n == 1)
+            {
+            searchLabel.setText("Gasit!");
+            articolLabel.setText(incaltaminte.get(m).toString());
+            }
+            else 
+            {
+            searchLabel.setText("Gasit " + n + " articole numite: ");
+            articolLabel.setText(incaltaminte.get(m).toString());
             }
         }
     });
