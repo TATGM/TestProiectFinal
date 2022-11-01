@@ -3,9 +3,9 @@ package MainPackage;
 public class Haina
 {
     public static int NR_OF_CLOTHING_ITEMS;
-    private String nume;
-    private String culoare;
-    private int pret;
+    protected String nume;
+    protected String culoare;
+    protected int pret;
 
     public Haina(String nume)
     {
