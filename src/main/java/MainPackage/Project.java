@@ -19,7 +19,7 @@ public class Project implements ActionListener
     public static void main(String[] args) {
 
         StringBuffer sb=new StringBuffer("Meniu "); 
-        NameHolder nh = NameHolder.getInstance();
+        //NameHolder nh = NameHolder.getInstance();
         sb.append("Principal"); 
         JFrame frame = new JFrame(sb.toString()); 
 
