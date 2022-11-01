@@ -18,8 +18,12 @@ public class Project implements ActionListener
 
     public static void main(String[] args) {
 
+        //Joldes a implementat functionalitatea de logging
+        Logger logger = Logger.getLogger(TestareProiect.class.getName());
+        logger.log(Level.INFO, "Acesta este o aplicatie de gesionare a unui magazin de haine si incaltaminte");
+
         StringBuffer sb=new StringBuffer("Meniu "); 
-        //NameHolder nh = NameHolder.getInstance();
+        NameHolder nh = NameHolder.getInstance();
         sb.append("Principal"); 
         JFrame frame = new JFrame(sb.toString()); 
 
