@@ -12,6 +12,7 @@ public class Project implements ActionListener
     static JLabel output;
     static JTable table;
     public static ArrayList<Haina> haine = new ArrayList<Haina>();
+    public static ArrayList<Incaltaminte> incaltaminte = new ArrayList<Incaltaminte>();
     //static Haina[] haine = new Haina[20];
     static DefaultTableModel model;
 
@@ -29,18 +30,34 @@ public class Project implements ActionListener
         haine.add(h2);
         haine.add(h3);
         haine.add(h4);
+        Incaltaminte p1 = new Incaltaminte(19, "Pantofi", "Bleu", 200);
+        incaltaminte.add(p1);
 
-        String[][] data = new String[20][3]; 
+        String[][] data = new String[20][4]; 
 
-        for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
+        /*for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
         {
             data[i][0] = haine.get(i).getNume();
             data[i][1] = haine.get(i).getCuloare();
             data[i][2] = Integer.toString(haine.get(i).getPret());
 
+        }*/
+        for(int i = 0; i < haine.size() ;i++)
+        {
+            data[i][0] = haine.get(i).getNume();
+            data[i][1] = haine.get(i).getCuloare();
+            data[i][2] = Integer.toString(haine.get(i).getPret());
         }
         
-        String[] columnNames = { "Articol", "Culoare", "Pret" };
+        for(int i = 0; i < incaltaminte.size() ;i++)
+        {
+            data[i][0] = incaltaminte.get(i).getNume();
+            data[i][1] = incaltaminte.get(i).getCuloare();
+            data[i][2] = Integer.toString(incaltaminte.get(i).getPret());
+            data[i][3] = Integer.toString(incaltaminte.get(i).getMarime());
+        }
+        
+        String[] columnNames = { "Articol", "Culoare", "Pret", "Marime" };
  
 
         model = new DefaultTableModel(columnNames, 0);
@@ -49,6 +66,7 @@ public class Project implements ActionListener
 
         frame.add(new JScrollPane(table));
 
+        /*
         for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
         {
         model.addRow(
@@ -56,6 +74,27 @@ public class Project implements ActionListener
                          haine.get(i).getNume(), 
                          haine.get(i).getCuloare(),
                          haine.get(i).getPret()
+                   });
+        }*/
+        
+        for(int i = 0; i < haine.size() ;i++)
+        {
+        model.addRow(
+                   new Object[]{
+                         haine.get(i).getNume(), 
+                         haine.get(i).getCuloare(),
+                         haine.get(i).getPret()
+                   });
+        }
+        
+        for(int i = 0; i < incaltaminte.size() ;i++)
+        {
+        model.addRow(
+                   new Object[]{
+                		   incaltaminte.get(i).getNume(), 
+                		   incaltaminte.get(i).getCuloare(),
+                		   incaltaminte.get(i).getPret(),
+                		   incaltaminte.get(i).getMarime()
                    });
         }
 
