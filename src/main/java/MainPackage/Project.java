@@ -127,7 +127,10 @@ public class Project implements ActionListener
             public void actionPerformed(ActionEvent e)
             {
                 new AddShoes(incaltaminte);
+<<<<<<< HEAD
                 new TooManyItems();
+=======
+>>>>>>> 37c229c22d094e3540239b30fffaffdddb40015b
             }
         });
 
@@ -154,6 +157,7 @@ static public class ShowInfo extends JFrame
         final JLabel label1  = new JLabel("Nume Magazin: " + mh.getName());
         final JLabel label2  = new JLabel("Adresa Magazin: " + mh.getAdress());
 
+<<<<<<< HEAD
         JButton button = new JButton("Done");
         button.addActionListener(new ActionListener()
         {
@@ -164,12 +168,33 @@ static public class ShowInfo extends JFrame
         });
         add(label1);  add(label2); add(button);
 
+=======
+static public class ShowInfo extends JFrame
+{
+	public ShowInfo()
+	{
+		MagazinHaine mh = MagazinHaine.getInstance();
+        final JLabel label1  = new JLabel("Nume Magazin: " + mh.getName());
+        final JLabel label2  = new JLabel("Adresa Magazin: " + mh.getAdress());
+
+        JButton button = new JButton("Done");
+        button.addActionListener(new ActionListener()
+        {
+        	public void actionPerformed(ActionEvent e)
+            {
+        		dispose();
+            }
+        });
+        add(label1);  add(label2); 
+
+>>>>>>> 37c229c22d094e3540239b30fffaffdddb40015b
         setLayout(new FlowLayout());
         setSize(700, 100);
         setVisible(true);
 	}
 }
     
+<<<<<<< HEAD
 static abstract class Error{  
 	  abstract void StopProgram();  
 }  
@@ -187,6 +212,8 @@ static class TooManyItems extends Error
 	}
 }
 
+=======
+>>>>>>> 37c229c22d094e3540239b30fffaffdddb40015b
 static class AddShoes extends JFrame
 {
 	public AddShoes(final ArrayList<Incaltaminte> incaltaminte)
