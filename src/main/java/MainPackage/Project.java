@@ -116,7 +116,7 @@ public class Project implements ActionListener //implementam ActionListener in c
         {
             public void actionPerformed(ActionEvent e)
             {
-            	sql.UpdateSql(haine, incaltaminte);
+            	new ShowInfo();
             }
         });
         
