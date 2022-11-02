@@ -1,7 +1,7 @@
 package MainPackage;
 
 class NameHolder {
-    private static NameHolder single_instance = null;
+    private static NameHolder single_instance = null; //Clasa specifica singleton
   
     public String s;
   

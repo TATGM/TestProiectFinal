@@ -1,13 +1,13 @@
 package MainPackage;
 
-public class Utility {
+public class Utility { //Clasa utilitara ce este folosita pentru a determina daca o valoare este numar
     public static boolean isNumeric(String string) {
         int intValue;
             
-        System.out.println(String.format("Parsing string: \"%s\"", string));
+        
             
         if(string == null || string.equals("")) {
-            System.out.println("String cannot be parsed, it is null or empty.");
+            
             return false;
         }
         
@@ -15,7 +15,7 @@ public class Utility {
             intValue = Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
-            System.out.println("Input String cannot be parsed to Integer.");
+            
         }
         return false;
     }

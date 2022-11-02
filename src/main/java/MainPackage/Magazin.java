@@ -1,6 +1,6 @@
 package MainPackage;
 
-public interface Magazin {
-	  public String getAdress(); // interface method (does not have a body)
-	  public String getName(); // interface method (does not have a body)
+public interface Magazin { //Interfata ce actioneaza ca sablon pentru un Magazin
+	  public String getAdress(); 
+	  public String getName();
 	}

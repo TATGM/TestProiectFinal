@@ -7,15 +7,14 @@ import java.awt.event.*;
 import javax.swing.table.*;
 import java.util.ArrayList;
 
-public class Project implements ActionListener
+public class Project implements ActionListener //implementam ActionListener in clasa principala pentru a putea folosi butoane
 {
-    static JTextField text, text2;
+    static JTextField text, text2;            //Se declara diferite obiecte din libraria JavaSwing
     static JLabel output;
     static JTable table;
     public static ArrayList<Haina> haine = new ArrayList<Haina>();
-    public static final ArrayList<Incaltaminte> incaltaminte = new ArrayList<Incaltaminte>();
-    //static Haina[] haine = new Haina[20];
-    static DefaultTableModel model;
+    public static final ArrayList<Incaltaminte> incaltaminte = new ArrayList<Incaltaminte>(); //Se creeaza doua ArrayList, unul pentru haine 
+    static DefaultTableModel model;                                                           //si unul pentru incaltaminte
 
     public static void main(String[] args) {
 
@@ -23,13 +22,13 @@ public class Project implements ActionListener
         Logger logger = Logger.getLogger(Project.class.getName());
         logger.log(Level.INFO, "Acesta este o aplicatie de gesionare a unui magazin de haine si incaltaminte");
 
-        StringBuffer sb=new StringBuffer("Meniu "); 
+        StringBuffer sb=new StringBuffer("Meniu ");  //Se seteaza numele meniului Principal cu un buffer
         NameHolder nh = NameHolder.getInstance();
         sb.append("Principal"); 
-        JFrame frame = new JFrame(sb.toString()); 
+        JFrame frame = new JFrame(sb.toString());  
 
         Haina h1 = new Haina("Tricou", "Rosu", 20);
-        Haina h2 = new Haina("Tricou", "Negru", 25);
+        Haina h2 = new Haina("Tricou", "Negru", 25);        //Se creeaza niste date ca exemplu
         Haina h3 = new Haina("Bluza", "Albastru", 55);
         Haina h4 = new Haina("Pantaloni", "Galben", 35);
         haine.add(h1);
@@ -39,22 +38,15 @@ public class Project implements ActionListener
         Incaltaminte p1 = new Incaltaminte(19, "Pantofi", "Bleu", 200);
         incaltaminte.add(p1);
         
-        final SQLiteDemo sql = new SQLiteDemo();
+        final SQLiteDemo sql = new SQLiteDemo();  //Se initializeaza Baza de date SQL
         
         String[][] data = new String[20][4]; 
 
-        /*for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
-        {
-            data[i][0] = haine.get(i).getNume();
-            data[i][1] = haine.get(i).getCuloare();
-            data[i][2] = Integer.toString(haine.get(i).getPret());
-
-        }*/
         for(int i = 0; i < haine.size() ;i++)
         {
             data[i][0] = haine.get(i).getNume();
             data[i][1] = haine.get(i).getCuloare();
-            data[i][2] = Integer.toString(haine.get(i).getPret());
+            data[i][2] = Integer.toString(haine.get(i).getPret());     //Se populeaza ArrayList-urile cu datele exemplu
         }
         
         for(int i = 0; i < incaltaminte.size() ;i++)
@@ -65,7 +57,7 @@ public class Project implements ActionListener
             data[i][3] = Integer.toString(incaltaminte.get(i).getMarime());
         }
         
-        String[] columnNames = { "Articol", "Culoare", "Pret", "Marime" };
+        String[] columnNames = { "Articol", "Culoare", "Pret", "Marime" }; //Se creeaza un JTable
  
 
         model = new DefaultTableModel(columnNames, 0);
@@ -74,18 +66,7 @@ public class Project implements ActionListener
 
         frame.add(new JScrollPane(table));
 
-        /*
-        for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
-        {
-        model.addRow(
-                   new Object[]{
-                         haine.get(i).getNume(), 
-                         haine.get(i).getCuloare(),
-                         haine.get(i).getPret()
-                   });
-        }*/
-        
-        for(int i = 0; i < haine.size() ;i++)
+        for(int i = 0; i < haine.size() ;i++)  //Se populeaza JTabel-ul creeat cu datele creeate
         {
         model.addRow(
                    new Object[]{
@@ -106,7 +87,7 @@ public class Project implements ActionListener
                    });
         }
 
-        JButton addButton = new JButton("Add Article");
+        JButton addButton = new JButton("Add Article");    //Se declara mai multe butoane si apoi se adauga la meniu
         JButton searchButton = new JButton("Cautare");
         JButton addButton2 = new JButton("Add Shoes");
         JButton storeInfoButton = new JButton("Store Info");
@@ -115,7 +96,7 @@ public class Project implements ActionListener
 
         frame.add(addButton);frame.add(searchButton);frame.add(addButton2);frame.add(storeInfoButton);frame.add(sqlShowButton);frame.add(sqlUpdateButton);
         
-        sqlUpdateButton.addActionListener(new ActionListener()
+        sqlUpdateButton.addActionListener(new ActionListener() //Se atribuie functia ActionListener la fiecare buton
         {
             public void actionPerformed(ActionEvent e)
             {
@@ -160,7 +141,7 @@ public class Project implements ActionListener
 
         addButton.addActionListener(instance);
 
-        frame.setLayout(new FlowLayout());
+        frame.setLayout(new FlowLayout());   //Se seteaza parametrii Meniului Principal
         frame.setSize(480, 750);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -171,7 +152,7 @@ public class Project implements ActionListener
         new TooManyItems();
     }
     
-static public class ShowInfo extends JFrame
+static public class ShowInfo extends JFrame //Clasa ce arata Informatii despre magazin folosind Singleton-ul MagazinHaine.java
 {
 	public ShowInfo()
 	{
@@ -195,12 +176,12 @@ static public class ShowInfo extends JFrame
 	}
 }
     
-static abstract class Error{  
+static abstract class Error{      //Se declara o clasa abstracta ce reprezinta o eroare
 	  abstract void StopProgram();  
 }  
 
-static class TooManyItems extends Error
-{
+static class TooManyItems extends Error //Se mosteneste clasa abstracta si se opreste programul 
+{										// daca numarul de obiecte din tabel depasesc 30
 	public TooManyItems()
 	{
 		StopProgram();
@@ -212,7 +193,7 @@ static class TooManyItems extends Error
 	}
 }
 
-static class AddShoes extends JFrame
+static class AddShoes extends JFrame //Metoda pentru a adauga Incaltaminte in tabel
 {
 	public AddShoes(final ArrayList<Incaltaminte> incaltaminte)
 	{
@@ -232,7 +213,7 @@ static class AddShoes extends JFrame
         add(button);
         button.addActionListener(new ActionListener()
         {
-            public void actionPerformed(ActionEvent e)
+            public void actionPerformed(ActionEvent e)  //Se verifica datele de intrare
             {
                 if(Utility.isNumeric(text1.getText()) || (Utility.isNumeric(text2.getText())) || !(Utility.isNumeric(text3.getText()))  || !(Utility.isNumeric(text4.getText())))
                 {
@@ -240,18 +221,19 @@ static class AddShoes extends JFrame
                     dispose();
                 }
                 else
-                {
+                {                                       //Se creeaza un nou obiect folosind datele de intrare si se adauga la ArrayList
                 Incaltaminte h = new Incaltaminte(Integer.parseInt(text4.getText()), text1.getText(), text2.getText(), Integer.parseInt(text3.getText()));
-                //haine[Haina.NR_OF_CLOTHING_ITEMS] = h;
                 incaltaminte.add(h);
 
-                model.addRow(
+                model.addRow(                          //Se actualizeaza tabelul
                    new Object[]{
                         text1.getText(), 
                         text2.getText(),
                         text3.getText(),
                         text4.getText()
                    });
+                Logger logger = Logger.getLogger(Project.class.getName());
+                logger.log(Level.INFO, "S-a creat un set nou de incaltaminte");
                 dispose();
                 }
             }
@@ -263,7 +245,7 @@ static class AddShoes extends JFrame
 	}
 }
     
-class CreateFrame extends JFrame
+class CreateFrame extends JFrame          //metoda ce adauga un nou articol vestimentar la tabel
 {
     public CreateFrame()
     {
@@ -283,24 +265,25 @@ class CreateFrame extends JFrame
         button.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
-            {
+            {													 //Se verifica datele de intrare
                 if(Utility.isNumeric(text1.getText()) || (Utility.isNumeric(text2.getText())) || !(Utility.isNumeric(text3.getText())))
                 {
                     new ShowError(); 
                     dispose();
                 }
                 else
-                {
+                {						//Se creeaza un nou obiect folosind datele de intrare si se adauga la ArrayList
                 Haina h = new Haina(text1.getText(), text2.getText(), Integer.parseInt(text3.getText()));
-                //haine[Haina.NR_OF_CLOTHING_ITEMS] = h;
                 haine.add(h);
 
                 model.addRow(
-                   new Object[]{
+                   new Object[]{        //Se actualizeaza tabelul
                         text1.getText(), 
                         text2.getText(),
                         text3.getText()
                    });
+                Logger logger = Logger.getLogger(Project.class.getName());           
+                logger.log(Level.INFO, "S-a creat un Articol de imbracaminte nou");
                 dispose();
                 }
             }
@@ -313,7 +296,7 @@ class CreateFrame extends JFrame
 }
 }
 
-class ShowError extends JFrame 
+class ShowError extends JFrame //Metoda ce gestioneaza eroarea in cazul in care datele de intrare sunt gresite
 {
     public ShowError()
     {
@@ -334,7 +317,7 @@ class ShowError extends JFrame
     }
 }
 
-class Search extends JFrame
+class Search extends JFrame  //Metoda ce cauta in tabel pentru numele unui obiect
 {
     public Search(final ArrayList<Haina> haine, final ArrayList<Incaltaminte> incaltaminte)
     {
@@ -348,14 +331,7 @@ class Search extends JFrame
         {
             int n = 0;
             int m = 0;
-            /*for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
-            {
-                if(searchText.getText().equals(haine.get(i).getNume()))
-                {
-                m = i;
-                n++;
-                }
-            }*/
+            
             for(int i = 0; i < haine.size() ;i++)
             {
                 if(searchText.getText().equals(haine.get(i).getNume()))
@@ -374,9 +350,9 @@ class Search extends JFrame
             else 
             {
             searchLabel.setText("Gasit " + n + " articole numite: ");
-            articolLabel.setText(haine.get(m).toString());
-            }
-            
+            articolLabel.setText(haine.get(m).toString());            //Daca se gaseste articolul cautat,
+            }														  // acesta e afisat prin functia sa toString()
+            														  //Se repeta pentru ArrayList-ul cu incaltaminte
             for(int i = 0; i < incaltaminte.size() ;i++)
             {
                 if(searchText.getText().equals(incaltaminte.get(i).getNume()))

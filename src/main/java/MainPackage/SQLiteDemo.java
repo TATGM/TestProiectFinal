@@ -3,31 +3,9 @@ package MainPackage;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SQLiteDemo {
-	/*
-	public static void main(String[] args) throws SQLException{
-		String jdbcUrl = "jdbc:sqlite:Articole.db";
-		Connection connection = DriverManager.getConnection(jdbcUrl); 
-		
-		
-		String sq1 = "select rowid, * from Articole";
-		//String sq2 = "DELETE FROM Articole";
-		String sq3 = "insert into Articole values ('Tricou', 'Alb', 45, 60)";
-		Statement statement = connection.createStatement();
-		int rows = statement.executeUpdate(sq3);
-		ResultSet result = statement.executeQuery(sq1);
-		//statement.executeUpdate(sq2);
- 		while (result.next())
-		{
- 			int rowId = result.getInt("rowid");
-			String Articol = result.getString("Articol");
-			String Culoare = result.getString("Culoare");
-			int Pret =  result.getInt("Pret");
-			System.out.println(rowId + " |Articol: " + Articol + " |Culoare: " + Culoare + " |Pret: " + Pret);
-		}
-		*/
+public class SQLiteDemo {  //Functie ce gestioneaza O baza de date Sql
 	
-	public SQLiteDemo()
+	public SQLiteDemo() //Constructor ce sterge datele ramase de la rularea anterioara a programului
 	{
 		try 
 		{
@@ -42,9 +20,9 @@ public class SQLiteDemo {
 			System.out.println("Oopsie");
 		}
 	}
-	
-	public void UpdateSql(ArrayList<Haina> haine, ArrayList<Incaltaminte> incaltaminte)
-	{
+																	
+	public void UpdateSql(ArrayList<Haina> haine, ArrayList<Incaltaminte> incaltaminte) //Metoda ce trece prin ambele ArrayList-uri si
+	{        																			//Actualizeaza baza de date
 		try 
 		{
 		String jdbcUrl = "jdbc:sqlite:Articole.db";
@@ -53,7 +31,6 @@ public class SQLiteDemo {
 		String row = "N";
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(clr);
-		//String sq3 = "insert into Articole values ('Tricou', 'Alb', 45, 60)";
 		for(int i = 0; i < haine.size() ;i++)
 		{
 			row =  "insert into Articole values ('"+ haine.get(i).getNume() +"', '"+haine.get(i).getCuloare()+"', "+haine.get(i).getPret()+", 0)";
@@ -76,7 +53,7 @@ public class SQLiteDemo {
 	
 	
 	public void PrintList()
-	{
+	{                       //Metoda ce afiseaza datele curente din baza de date
 		try 
 		{
 		String jdbcUrl = "jdbc:sqlite:Articole.db";
