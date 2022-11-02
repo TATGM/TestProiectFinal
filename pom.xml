@@ -3,4 +3,12 @@
   <groupId>ProiectFinal</groupId>
   <artifactId>ProiectFinal</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>3.39.3.0</version>
+    </dependency>
+  </dependencies>
 </project>

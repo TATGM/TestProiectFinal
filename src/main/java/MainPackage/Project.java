@@ -1,5 +1,6 @@
 package MainPackage;
 
+import java.util.logging.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,6 +19,10 @@ public class Project implements ActionListener
 
     public static void main(String[] args) {
 
+        //Joldes a implementat functionalitatea de logging
+        Logger logger = Logger.getLogger(Project.class.getName());
+        logger.log(Level.INFO, "Acesta este o aplicatie de gesionare a unui magazin de haine si incaltaminte");
+
         StringBuffer sb=new StringBuffer("Meniu "); 
         NameHolder nh = NameHolder.getInstance();
         sb.append("Principal"); 
@@ -33,7 +38,9 @@ public class Project implements ActionListener
         haine.add(h4);
         Incaltaminte p1 = new Incaltaminte(19, "Pantofi", "Bleu", 200);
         incaltaminte.add(p1);
-
+        
+        final SQLiteDemo sql = new SQLiteDemo();
+        
         String[][] data = new String[20][4]; 
 
         /*for(int i = 0; i < Haina.NR_OF_CLOTHING_ITEMS ;i++)
@@ -103,14 +110,32 @@ public class Project implements ActionListener
         JButton searchButton = new JButton("Cautare");
         JButton addButton2 = new JButton("Add Shoes");
         JButton storeInfoButton = new JButton("Store Info");
+        JButton sqlUpdateButton = new JButton("UpdateSql");
+        JButton sqlShowButton = new JButton("ShowSql");
 
-        frame.add(addButton);frame.add(searchButton);frame.add(addButton2);frame.add(storeInfoButton);
+        frame.add(addButton);frame.add(searchButton);frame.add(addButton2);frame.add(storeInfoButton);frame.add(sqlShowButton);frame.add(sqlUpdateButton);
+        
+        sqlUpdateButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+            	sql.UpdateSql(haine, incaltaminte);
+            }
+        });
+        
+        sqlShowButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+            	sql.PrintList();
+            }
+        });
         
         storeInfoButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                new ShowInfo();
+            	sql.UpdateSql(haine, incaltaminte);
             }
         });
         
@@ -209,7 +234,7 @@ static class AddShoes extends JFrame
         {
             public void actionPerformed(ActionEvent e)
             {
-                if(Utility.isNumeric(text1.getText()) || (Utility.isNumeric(text2.getText())) || !(Utility.isNumeric(text3.getText())))
+                if(Utility.isNumeric(text1.getText()) || (Utility.isNumeric(text2.getText())) || !(Utility.isNumeric(text3.getText()))  || !(Utility.isNumeric(text4.getText())))
                 {
                     new ShowError(); 
                     dispose();
